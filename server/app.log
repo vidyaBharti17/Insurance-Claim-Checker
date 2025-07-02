@@ -11,3 +11,36 @@
 2025-06-21 21:59:47,758 - INFO - File saved: sample4.jpg
 2025-06-21 21:59:48,080 - INFO - Processed sample4.jpg - Eligibility: Eligible
 2025-06-21 21:59:48,083 - INFO - 127.0.0.1 - - [21/Jun/2025 21:59:48] "POST /upload HTTP/1.1" 200 -
+2025-06-26 09:11:13,064 - INFO - Serving on http://0.0.0.0:5000
+2025-06-26 09:19:04,966 - INFO - Serving on http://0.0.0.0:5000
+2025-07-01 12:25:07,991 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.118.99:5000
+2025-07-01 12:25:07,992 - INFO - [33mPress CTRL+C to quit[0m
+2025-07-01 12:25:07,997 - INFO -  * Restarting with stat
+2025-07-01 12:25:11,354 - WARNING -  * Debugger is active!
+2025-07-01 12:25:11,363 - INFO -  * Debugger PIN: 111-820-232
+2025-07-01 12:26:36,067 - INFO - File saved: sample4.jpg
+2025-07-01 12:26:38,389 - INFO - Processed sample4.jpg - Eligibility: Eligible
+2025-07-01 12:26:38,392 - INFO - 127.0.0.1 - - [01/Jul/2025 12:26:38] "POST /upload HTTP/1.1" 200 -
+2025-07-01 12:27:11,783 - INFO - File saved: sample3.jpg
+2025-07-01 12:27:12,131 - INFO - Processed sample3.jpg - Eligibility: Not Eligible
+2025-07-01 12:27:12,133 - INFO - 127.0.0.1 - - [01/Jul/2025 12:27:12] "POST /upload HTTP/1.1" 200 -
+2025-07-02 22:49:32,558 - INFO - Serving on http://0.0.0.0:5000
+2025-07-02 22:55:00,356 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.118.99:5000
+2025-07-02 22:55:00,357 - INFO - [33mPress CTRL+C to quit[0m
+2025-07-02 22:55:00,362 - INFO -  * Restarting with stat
+2025-07-02 22:55:02,836 - WARNING -  * Debugger is active!
+2025-07-02 22:55:02,842 - INFO -  * Debugger PIN: 111-820-232
+2025-07-02 22:55:21,809 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.118.99:5000
+2025-07-02 22:55:21,810 - INFO - [33mPress CTRL+C to quit[0m
+2025-07-02 22:55:21,812 - INFO -  * Restarting with stat
+2025-07-02 22:55:24,570 - WARNING -  * Debugger is active!
+2025-07-02 22:55:24,574 - INFO -  * Debugger PIN: 111-820-232
