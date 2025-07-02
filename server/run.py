@@ -1,5 +1,6 @@
-from flask import Flask, request
+from flask import Flask, request, redirect, url_for, render_template, send_file
 from flask_cors import CORS
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import os
 import pytesseract
 from PIL import Image
@@ -14,6 +15,7 @@ logging.basicConfig(filename='app.log', level=logging.INFO,
 
 app = Flask(__name__)
 CORS(app)
+app.secret_key = 'your_secret_key'  # Change this to a secure key in production
 
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -24,55 +26,109 @@ if not os.path.exists(UPLOAD_FOLDER):
 # Load spaCy model
 nlp = spacy.load('en_core_web_sm')
 
+# Flask-Login setup
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+# Dummy user class
+class User(UserMixin):
+    pass
+
+users = {'user@example.com': {'password': 'password123'}}
+
+@login_manager.user_loader
+def load_user(user_id):
+    if user_id in users:
+        user = User()
+        user.id = user_id
+        return user
+    return None
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        if email in users and users[email]['password'] == password:
+            user = User()
+            user.id = email
+            login_user(user)
+            return redirect(url_for('upload_page'))
+    return '''
+    <form method="post">
+        <label>Email: <input type="text" name="email"></label>
+        <label>Password: <input type="password" name="password"></label>
+        <input type="submit" value="Login">
+    </form>
+    '''
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
 @app.route('/')
 def hello():
-    return 'Hello, World!'
+    return redirect(url_for('login'))
 
-@app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['GET', 'POST'])
+@login_required
 def upload_file():
-    if 'file' not in request.files:
-        logging.error('No file part in request')
-        return 'No file part', 400
-    file = request.files['file']
-    if file.filename == '':
-        logging.error('No selected file')
-        return 'No selected file', 400
-    if file:
-        filename = file.filename
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        try:
-            file.save(file_path)
-            logging.info(f'File saved: {filename}')
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            logging.error('No file part in request')
+            return 'No file part', 400
+        file = request.files['file']
+        if file.filename == '':
+            logging.error('No selected file')
+            return 'No selected file', 400
+        if file:
+            filename = file.filename
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            try:
+                file.save(file_path)
+                logging.info(f'File saved: {filename}')
 
-            if filename.lower().endswith('.pdf'):
-                images = convert_from_path(file_path)
-                text = ''
-                for i, img in enumerate(images):
-                    img.save(f'uploads/page_{i}.jpg', 'JPEG')
-                    text += pytesseract.image_to_string(img)
-            else:
-                img = Image.open(file_path)
-                text = pytesseract.image_to_string(img)
+                if filename.lower().endswith('.pdf'):
+                    images = convert_from_path(file_path)
+                    text = ''
+                    for i, img in enumerate(images):
+                        img.save(f'uploads/page_{i}.jpg', 'JPEG')
+                        text += pytesseract.image_to_string(img)
+                else:
+                    img = Image.open(file_path)
+                    text = pytesseract.image_to_string(img)
 
-            # Process text with spaCy
-            doc = nlp(text.lower())
-            age = None
-            for ent in doc.ents:
-                if ent.label_ == 'AGE' or 'years' in ent.text.lower():
-                    age = ent.text
-                    break
+                # Process text with spaCy
+                doc = nlp(text.lower())
+                age = None
+                for ent in doc.ents:
+                    if ent.label_ == 'AGE' or 'years' in ent.text.lower():
+                        age = ent.text
+                        break
 
-            condition_found = any(condition in text.lower() for condition in config.ELIGIBILITY_RULES['approved_conditions'])
-            eligibility = 'Eligible' if (age and int(age.split()[0]) >= config.ELIGIBILITY_RULES['min_age'] and condition_found) else 'Not Eligible'
-            result = f'Extracted text: {text}\nEligibility: {eligibility}'
-            logging.info(f'Processed {filename} - Eligibility: {eligibility}')
+                condition_found = any(condition in text.lower() for condition in config.ELIGIBILITY_RULES['approved_conditions'])
+                eligibility = 'Eligible' if (age and int(age.split()[0]) >= config.ELIGIBILITY_RULES['min_age'] and condition_found) else 'Not Eligible'
+                report_content = f'Insurance Claim Eligibility Report\n\nExtracted Text:\n{text}\n\nEligibility: {eligibility}'
+                report_path = os.path.join(app.config['UPLOAD_FOLDER'], 'report.txt')
+                with open(report_path, 'w') as f:
+                    f.write(report_content)
 
-            return result, 200
-        except Exception as e:
-            logging.error(f'Error processing {filename}: {str(e)}')
-            return f'Error extracting text: {str(e)}', 500
+                return send_file(report_path, as_attachment=True, download_name='eligibility_report.txt', mimetype='text/plain'), 200
+            except Exception as e:
+                logging.error(f'Error processing {filename}: {str(e)}')
+                return f'Error extracting text: {str(e)}', 500
 
-    return 'Error uploading file', 500
+    return '''
+    <h1>Upload File</h1>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+    <a href="/logout">Logout</a>
+    '''
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
