@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, url_for, render_template, send_file
+from flask import Flask, request, redirect, url_for, jsonify
 from flask_cors import CORS
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import os
@@ -79,11 +79,11 @@ def upload_file():
     if request.method == 'POST':
         if 'file' not in request.files:
             logging.error('No file part in request')
-            return 'No file part', 400
+            return jsonify({'error': 'No file part'}), 400
         file = request.files['file']
         if file.filename == '':
             logging.error('No selected file')
-            return 'No selected file', 400
+            return jsonify({'error': 'No selected file'}), 400
         if file:
             filename = file.filename
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -111,15 +111,16 @@ def upload_file():
 
                 condition_found = any(condition in text.lower() for condition in config.ELIGIBILITY_RULES['approved_conditions'])
                 eligibility = 'Eligible' if (age and int(age.split()[0]) >= config.ELIGIBILITY_RULES['min_age'] and condition_found) else 'Not Eligible'
-                report_content = f'Insurance Claim Eligibility Report\n\nExtracted Text:\n{text}\n\nEligibility: {eligibility}'
-                report_path = os.path.join(app.config['UPLOAD_FOLDER'], 'report.txt')
-                with open(report_path, 'w') as f:
-                    f.write(report_content)
+                logging.info(f'Processed {filename} - Eligibility: {eligibility}')
 
-                return send_file(report_path, as_attachment=True, download_name='eligibility_report.txt', mimetype='text/plain'), 200
+                return jsonify({
+                  'message': 'File processed successfully',
+                  'extractedText': text,
+                  'eligibility': eligibility
+                }), 200
             except Exception as e:
                 logging.error(f'Error processing {filename}: {str(e)}')
-                return f'Error extracting text: {str(e)}', 500
+                return jsonify({'error': f'Error extracting text: {str(e)}'}), 500
 
     return '''
     <h1>Upload File</h1>

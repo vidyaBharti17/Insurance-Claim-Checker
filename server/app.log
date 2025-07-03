@@ -44,3 +44,88 @@
 2025-07-02 22:55:21,812 - INFO -  * Restarting with stat
 2025-07-02 22:55:24,570 - WARNING -  * Debugger is active!
 2025-07-02 22:55:24,574 - INFO -  * Debugger PIN: 111-820-232
+2025-07-02 23:32:34,550 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.118.99:5000
+2025-07-02 23:32:34,550 - INFO - [33mPress CTRL+C to quit[0m
+2025-07-02 23:32:34,554 - INFO -  * Restarting with stat
+2025-07-02 23:32:36,826 - WARNING -  * Debugger is active!
+2025-07-02 23:32:36,833 - INFO -  * Debugger PIN: 111-820-232
+2025-07-02 23:33:58,969 - INFO - 127.0.0.1 - - [02/Jul/2025 23:33:58] "POST /login HTTP/1.1" 200 -
+2025-07-02 23:34:20,692 - INFO - 127.0.0.1 - - [02/Jul/2025 23:34:20] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-02 23:34:21,012 - INFO - 127.0.0.1 - - [02/Jul/2025 23:34:21] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-02 23:41:31,144 - INFO - 127.0.0.1 - - [02/Jul/2025 23:41:31] "POST /login HTTP/1.1" 200 -
+2025-07-02 23:49:32,635 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.118.99:5000
+2025-07-02 23:49:32,635 - INFO - [33mPress CTRL+C to quit[0m
+2025-07-02 23:49:32,637 - INFO -  * Restarting with stat
+2025-07-02 23:49:35,260 - WARNING -  * Debugger is active!
+2025-07-02 23:49:35,265 - INFO -  * Debugger PIN: 111-820-232
+2025-07-02 23:50:39,989 - INFO - 127.0.0.1 - - [02/Jul/2025 23:50:39] "POST /login HTTP/1.1" 200 -
+2025-07-02 23:50:52,927 - INFO - 127.0.0.1 - - [02/Jul/2025 23:50:52] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-02 23:50:53,250 - INFO - 127.0.0.1 - - [02/Jul/2025 23:50:53] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-02 23:50:56,933 - INFO - 127.0.0.1 - - [02/Jul/2025 23:50:56] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-02 23:50:57,249 - INFO - 127.0.0.1 - - [02/Jul/2025 23:50:57] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-02 23:51:03,749 - INFO - 127.0.0.1 - - [02/Jul/2025 23:51:03] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-02 23:51:04,073 - INFO - 127.0.0.1 - - [02/Jul/2025 23:51:04] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-03 00:09:15,760 - INFO - 127.0.0.1 - - [03/Jul/2025 00:09:15] "POST /login HTTP/1.1" 200 -
+2025-07-03 00:09:22,883 - INFO - 127.0.0.1 - - [03/Jul/2025 00:09:22] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-03 00:09:23,205 - INFO - 127.0.0.1 - - [03/Jul/2025 00:09:23] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-03 12:15:02,259 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+2025-07-03 12:15:02,260 - INFO - [33mPress CTRL+C to quit[0m
+2025-07-03 12:15:02,265 - INFO -  * Restarting with stat
+2025-07-03 12:15:05,731 - WARNING -  * Debugger is active!
+2025-07-03 12:15:05,737 - INFO -  * Debugger PIN: 111-820-232
+2025-07-03 12:15:49,280 - INFO - 127.0.0.1 - - [03/Jul/2025 12:15:49] "POST /login HTTP/1.1" 200 -
+2025-07-03 12:16:03,967 - INFO - 127.0.0.1 - - [03/Jul/2025 12:16:03] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-03 12:16:04,286 - INFO - 127.0.0.1 - - [03/Jul/2025 12:16:04] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-03 12:16:08,802 - INFO - 127.0.0.1 - - [03/Jul/2025 12:16:08] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-03 12:16:09,122 - INFO - 127.0.0.1 - - [03/Jul/2025 12:16:09] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-03 12:16:16,690 - INFO - 127.0.0.1 - - [03/Jul/2025 12:16:16] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-03 12:16:17,008 - INFO - 127.0.0.1 - - [03/Jul/2025 12:16:17] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-03 12:16:22,682 - INFO - 127.0.0.1 - - [03/Jul/2025 12:16:22] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-03 12:16:23,003 - INFO - 127.0.0.1 - - [03/Jul/2025 12:16:23] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-03 12:16:33,257 - INFO - 127.0.0.1 - - [03/Jul/2025 12:16:33] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-03 12:16:33,570 - INFO - 127.0.0.1 - - [03/Jul/2025 12:16:33] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-03 12:32:53,204 - INFO - 127.0.0.1 - - [03/Jul/2025 12:32:53] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-03 12:32:53,454 - INFO - 127.0.0.1 - - [03/Jul/2025 12:32:53] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-03 12:45:22,926 - INFO - 127.0.0.1 - - [03/Jul/2025 12:45:22] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-03 12:45:23,184 - INFO - 127.0.0.1 - - [03/Jul/2025 12:45:23] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-03 16:57:59,736 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.118.99:5000
+2025-07-03 16:57:59,736 - INFO - [33mPress CTRL+C to quit[0m
+2025-07-03 16:57:59,739 - INFO -  * Restarting with stat
+2025-07-03 16:58:02,067 - WARNING -  * Debugger is active!
+2025-07-03 16:58:02,071 - INFO -  * Debugger PIN: 111-820-232
+2025-07-03 16:58:56,617 - INFO - 127.0.0.1 - - [03/Jul/2025 16:58:56] "POST /login HTTP/1.1" 200 -
+2025-07-03 16:59:07,081 - INFO - 127.0.0.1 - - [03/Jul/2025 16:59:07] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-03 16:59:07,395 - INFO - 127.0.0.1 - - [03/Jul/2025 16:59:07] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-03 17:10:30,416 - INFO -  * Detected change in 'C:\\Users\\vidya\\Documents\\insurance claim checker\\server\\run.py', reloading
+2025-07-03 17:10:30,714 - INFO -  * Restarting with stat
+2025-07-03 17:10:33,260 - WARNING -  * Debugger is active!
+2025-07-03 17:10:33,263 - INFO -  * Debugger PIN: 111-820-232
+2025-07-03 17:10:40,931 - INFO -  * Detected change in 'C:\\Users\\vidya\\Documents\\insurance claim checker\\server\\config.py', reloading
+2025-07-03 17:10:41,152 - INFO -  * Restarting with stat
+2025-07-03 17:10:44,005 - WARNING -  * Debugger is active!
+2025-07-03 17:10:44,008 - INFO -  * Debugger PIN: 111-820-232
+2025-07-03 17:11:16,411 - INFO - 127.0.0.1 - - [03/Jul/2025 17:11:16] "POST /login HTTP/1.1" 200 -
+2025-07-03 17:11:23,874 - INFO - 127.0.0.1 - - [03/Jul/2025 17:11:23] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-03 17:11:24,198 - INFO - 127.0.0.1 - - [03/Jul/2025 17:11:24] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-03 17:11:26,803 - INFO - 127.0.0.1 - - [03/Jul/2025 17:11:26] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-03 17:11:27,123 - INFO - 127.0.0.1 - - [03/Jul/2025 17:11:27] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-03 17:39:48,669 - INFO -  * Detected change in 'C:\\Users\\vidya\\Documents\\insurance claim checker\\server\\run.py', reloading
+2025-07-03 17:39:48,872 - INFO -  * Restarting with stat
+2025-07-03 17:39:51,530 - WARNING -  * Debugger is active!
+2025-07-03 17:39:51,533 - INFO -  * Debugger PIN: 111-820-232
+2025-07-03 17:40:02,456 - INFO -  * Detected change in 'C:\\Users\\vidya\\Documents\\insurance claim checker\\server\\config.py', reloading
+2025-07-03 17:40:02,631 - INFO -  * Restarting with stat
+2025-07-03 17:40:05,522 - WARNING -  * Debugger is active!
+2025-07-03 17:40:05,525 - INFO -  * Debugger PIN: 111-820-232
