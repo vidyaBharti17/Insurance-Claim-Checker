@@ -1,8 +1,7 @@
 # config.py
-GOVERNMENT_POLICIES = {
+ELIGIBILITY_RULES = {
     'min_age': 18,
-    'max_age': 70,
-    'income_limit_lakh': 5.0,  # Annual income in lakhs
-    'approved_conditions': ['diabetes', 'hypertension', 'heart disease'],
-    'excluded_conditions': ['cancer', 'HIV', 'tuberculosis']
+    'max_age': 65,  # New upper limit
+    'approved_conditions': ['diabetes', 'hypertension', 'asthma'],
+    'excluded_conditions': ['cancer', 'HIV']  # New exclusion list
 }

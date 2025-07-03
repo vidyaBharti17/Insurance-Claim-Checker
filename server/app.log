@@ -129,3 +129,49 @@
 2025-07-03 17:40:02,631 - INFO -  * Restarting with stat
 2025-07-03 17:40:05,522 - WARNING -  * Debugger is active!
 2025-07-03 17:40:05,525 - INFO -  * Debugger PIN: 111-820-232
+2025-07-03 17:40:32,493 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.118.99:5000
+2025-07-03 17:40:32,493 - INFO - [33mPress CTRL+C to quit[0m
+2025-07-03 17:40:32,495 - INFO -  * Restarting with stat
+2025-07-03 17:40:34,870 - WARNING -  * Debugger is active!
+2025-07-03 17:40:34,876 - INFO -  * Debugger PIN: 111-820-232
+2025-07-03 17:41:01,939 - INFO - 127.0.0.1 - - [03/Jul/2025 17:41:01] "POST /login HTTP/1.1" 200 -
+2025-07-03 17:41:11,790 - INFO - 127.0.0.1 - - [03/Jul/2025 17:41:11] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-03 17:41:12,108 - INFO - 127.0.0.1 - - [03/Jul/2025 17:41:12] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-03 17:59:36,917 - INFO -  * Detected change in 'C:\\Users\\vidya\\Documents\\insurance claim checker\\server\\run.py', reloading
+2025-07-03 17:59:37,111 - INFO -  * Restarting with stat
+2025-07-03 17:59:39,725 - WARNING -  * Debugger is active!
+2025-07-03 17:59:39,728 - INFO -  * Debugger PIN: 111-820-232
+2025-07-03 17:59:59,110 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.118.99:5000
+2025-07-03 17:59:59,110 - INFO - [33mPress CTRL+C to quit[0m
+2025-07-03 17:59:59,111 - INFO -  * Restarting with stat
+2025-07-03 18:00:01,598 - WARNING -  * Debugger is active!
+2025-07-03 18:00:01,602 - INFO -  * Debugger PIN: 111-820-232
+2025-07-03 18:03:14,465 - INFO - 127.0.0.1 - - [03/Jul/2025 18:03:14] "POST /login HTTP/1.1" 200 -
+2025-07-03 18:03:45,705 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.118.99:5000
+2025-07-03 18:03:45,705 - INFO - [33mPress CTRL+C to quit[0m
+2025-07-03 18:03:45,706 - INFO -  * Restarting with stat
+2025-07-03 18:03:48,183 - WARNING -  * Debugger is active!
+2025-07-03 18:03:48,190 - INFO -  * Debugger PIN: 111-820-232
+2025-07-03 18:04:16,779 - INFO - 127.0.0.1 - - [03/Jul/2025 18:04:16] "POST /login HTTP/1.1" 200 -
+2025-07-03 18:08:13,852 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.118.99:5000
+2025-07-03 18:08:13,852 - INFO - [33mPress CTRL+C to quit[0m
+2025-07-03 18:08:13,855 - INFO -  * Restarting with stat
+2025-07-03 18:08:16,403 - WARNING -  * Debugger is active!
+2025-07-03 18:08:16,407 - INFO -  * Debugger PIN: 111-820-232
+2025-07-03 18:08:44,169 - INFO - 127.0.0.1 - - [03/Jul/2025 18:08:44] "POST /login HTTP/1.1" 200 -
+2025-07-03 18:08:58,370 - INFO - 127.0.0.1 - - [03/Jul/2025 18:08:58] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-03 18:08:58,692 - INFO - 127.0.0.1 - - [03/Jul/2025 18:08:58] "GET /login?next=/upload HTTP/1.1" 200 -
+2025-07-03 18:09:02,601 - INFO - 127.0.0.1 - - [03/Jul/2025 18:09:02] "[32mPOST /upload HTTP/1.1[0m" 302 -
+2025-07-03 18:09:02,915 - INFO - 127.0.0.1 - - [03/Jul/2025 18:09:02] "GET /login?next=/upload HTTP/1.1" 200 -

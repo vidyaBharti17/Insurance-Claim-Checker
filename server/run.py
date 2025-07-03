@@ -8,6 +8,8 @@ from pdf2image import convert_from_path
 import spacy
 import config
 import logging
+import smtplib
+from email.mime.text import MIMEText
 
 # Set up logging
 logging.basicConfig(filename='app.log', level=logging.INFO,
@@ -15,16 +17,21 @@ logging.basicConfig(filename='app.log', level=logging.INFO,
 
 app = Flask(__name__)
 CORS(app)
-app.secret_key = 'your_secret_key'  # Change this to a secure key in production
+app.secret_key = os.environ.get('SECRET_KEY', 'your_secret_key')  # Use environment variable
 
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 # Load spaCy model
-nlp = spacy.load('en_core_web_sm')
+try:
+    nlp = spacy.load('en_core_web_sm')
+except OSError:
+    import subprocess
+    subprocess.run(['python', '-m', 'spacy', 'download', 'en_core_web_sm'])
+    nlp = spacy.load('en_core_web_sm')
 
 # Flask-Login setup
 login_manager = LoginManager()
@@ -35,7 +42,7 @@ login_manager.login_view = 'login'
 class User(UserMixin):
     pass
 
-users = {'user@example.com': {'password': 'password123'}}
+users = {'user@example.com': {'password': 'password123', 'email': 'user@example.com'}}  # Add user email
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -44,6 +51,17 @@ def load_user(user_id):
         user.id = user_id
         return user
     return None
+
+def send_email(to_email, subject, body):
+    msg = MIMEText(body)
+    msg['Subject'] = subject
+    msg['From'] = 'your-email@gmail.com'  # Replace with your Gmail
+    msg['To'] = to_email
+
+    with smtplib.SMTP('smtp.gmail.com', 587) as server:
+        server.starttls()
+        server.login('your-email@gmail.com', 'your-app-password')  # Use App Password from Google Account
+        server.send_message(msg)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -95,7 +113,7 @@ def upload_file():
                     images = convert_from_path(file_path)
                     text = ''
                     for i, img in enumerate(images):
-                        img.save(f'uploads/page_{i}.jpg', 'JPEG')
+                        img.save(os.path.join(app.config['UPLOAD_FOLDER'], f'page_{i}.jpg'), 'JPEG')
                         text += pytesseract.image_to_string(img)
                 else:
                     img = Image.open(file_path)
@@ -104,19 +122,27 @@ def upload_file():
                 # Process text with spaCy
                 doc = nlp(text.lower())
                 age = None
+                conditions = []
                 for ent in doc.ents:
                     if ent.label_ == 'AGE' or 'years' in ent.text.lower():
                         age = ent.text
-                        break
+                    if ent.label_ in ['DISEASE', 'CONDITION'] or any(cond in ent.text.lower() for cond in config.ELIGIBILITY_RULES['approved_conditions']):
+                        conditions.append(ent.text)
 
-                condition_found = any(condition in text.lower() for condition in config.ELIGIBILITY_RULES['approved_conditions'])
+                condition_found = any(cond.lower() in text.lower() for cond in config.ELIGIBILITY_RULES['approved_conditions'])
                 eligibility = 'Eligible' if (age and int(age.split()[0]) >= config.ELIGIBILITY_RULES['min_age'] and condition_found) else 'Not Eligible'
                 logging.info(f'Processed {filename} - Eligibility: {eligibility}')
+
+                # Send email notification
+                user_email = current_user.id
+                email_body = f'Subject: Eligibility Result\n\nEligibility Status: {eligibility}\nExtracted Text: {text}\nConditions Found: {", ".join(conditions)}'
+                send_email(user_email, 'Eligibility Result', email_body)
 
                 return jsonify({
                   'message': 'File processed successfully',
                   'extractedText': text,
-                  'eligibility': eligibility
+                  'eligibility': eligibility,
+                  'conditions': conditions
                 }), 200
             except Exception as e:
                 logging.error(f'Error processing {filename}: {str(e)}')

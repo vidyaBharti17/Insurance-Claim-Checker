@@ -97,14 +97,22 @@ function App() {
       <div className="App">
         <h1>Insurance Claim Eligibility Checker</h1>
         <div className="form-container">
-          <label>
-            Email:
-            <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-          </label>
-          <label>
-            Password:
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          </label>
+          <label htmlFor="email-input">Email:</label>
+          <input
+            id="email-input"
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            aria-label="Email address"
+          />
+          <label htmlFor="password-input">Password:</label>
+          <input
+            id="password-input"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            aria-label="Password"
+          />
           <button onClick={handleLogin} disabled={loading}>
             Login{loading && '...'}
           </button>
@@ -118,17 +126,20 @@ function App() {
   return (
     <div className="App">
       <h1>Insurance Claim Eligibility Checker</h1>
-      <button className="nav-button" onClick={() => setShowDashboard(!showDashboard)}>
+      <button className="nav-button" onClick={() => setShowDashboard(!showDashboard)} aria-label="Toggle Dashboard">
         {showDashboard ? 'Back to Upload' : 'View Dashboard'}
       </button>
       {showDashboard ? (
         <Dashboard />
       ) : (
         <div className="form-container">
-          <label>
-            Upload Medical Report:
-            <input type="file" onChange={handleFileChange} />
-          </label>
+          <label htmlFor="file-input">Upload Medical Report:</label>
+          <input
+            id="file-input"
+            type="file"
+            onChange={handleFileChange}
+            aria-label="Select medical report file"
+          />
           <button onClick={handleSubmit} disabled={loading}>
             Upload{loading && '...'}
           </button>
@@ -137,7 +148,9 @@ function App() {
           {loading && <div className="progress-bar"><div className="progress" style={{ width: `${progress}%` }} /></div>}
           {(extractedText || eligibility) && (
             <div className={`result-section ${isCollapsed ? 'collapsed' : ''}`}>
-              <h3 onClick={() => setIsCollapsed(!isCollapsed)}>Results {isCollapsed ? '+' : '-'}</h3>
+              <h3 onClick={() => setIsCollapsed(!isCollapsed)} aria-expanded={!isCollapsed}>
+                Results {isCollapsed ? '+' : '-'}
+              </h3>
               {!isCollapsed && (
                 <>
                   {extractedText && (
@@ -154,7 +167,9 @@ function App() {
                       </p>
                     </>
                   )}
-                  <button className="reset-button" onClick={handleReset}>Reset</button>
+                  <button className="reset-button" onClick={handleReset} aria-label="Reset form">
+                    Reset
+                  </button>
                 </>
               )}
             </div>
