@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
-import Dashboard from './Dashboard';
 
 function App() {
   const [file, setFile] = useState(null);
@@ -9,47 +8,6 @@ function App() {
   const [extractedText, setExtractedText] = useState('');
   const [eligibility, setEligibility] = useState('');
   const [loading, setLoading] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showDashboard, setShowDashboard] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  useEffect(() => {
-    let timer;
-    if (loading) {
-      let progressValue = 0;
-      timer = setInterval(() => {
-        progressValue += 10;
-        setProgress(progressValue > 100 ? 100 : progressValue);
-        if (progressValue >= 100) clearInterval(timer);
-      }, 200);
-      setMessage('Processing...');
-    } else {
-      setProgress(0);
-    }
-    return () => clearInterval(timer);
-  }, [loading]);
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      const response = await axios.post('http://localhost:5000/login', new URLSearchParams({
-        email,
-        password,
-      }), {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      });
-      setIsLoggedIn(true);
-      setMessage('Logged in successfully');
-    } catch (error) {
-      setMessage('Login failed: ' + (error.response?.data || error.message));
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -75,105 +33,42 @@ function App() {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setMessage('File processed successfully');
-      setExtractedText(response.data.extractedText || '');
-      setEligibility(response.data.eligibility || '');
+      setMessage(response.data);
+      const lines = response.data.split('\n');
+      const textLine = lines.find(line => line.startsWith('Extracted text:'));
+      const eligibilityLine = lines.find(line => line.startsWith('Eligibility:'));
+      setExtractedText(textLine ? textLine.replace('Extracted text: ', '') : '');
+      setEligibility(eligibilityLine ? eligibilityLine.replace('Eligibility: ', '') : '');
     } catch (error) {
-      setMessage('Error uploading file: ' + (error.response?.data?.error || error.message));
+      setMessage('Error uploading file: ' + (error.response?.data || error.message));
     } finally {
       setLoading(false);
     }
   };
 
-  const handleReset = () => {
-    setFile(null);
-    setMessage('');
-    setExtractedText('');
-    setEligibility('');
-  };
-
-  if (!isLoggedIn) {
-    return (
-      <div className="App">
-        <h1>Insurance Claim Eligibility Checker</h1>
-        <div className="form-container">
-          <label htmlFor="email-input">Email:</label>
-          <input
-            id="email-input"
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            aria-label="Email address"
-          />
-          <label htmlFor="password-input">Password:</label>
-          <input
-            id="password-input"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            aria-label="Password"
-          />
-          <button onClick={handleLogin} disabled={loading}>
-            Login{loading && '...'}
-          </button>
-        </div>
-        {message && <p className={message.includes('Error') ? 'error' : 'success'}>{message}</p>}
-        {loading && <div className="progress-bar"><div className="progress" style={{ width: `${progress}%` }} /></div>}
-      </div>
-    );
-  }
-
   return (
     <div className="App">
       <h1>Insurance Claim Eligibility Checker</h1>
-      <button className="nav-button" onClick={() => setShowDashboard(!showDashboard)} aria-label="Toggle Dashboard">
-        {showDashboard ? 'Back to Upload' : 'View Dashboard'}
-      </button>
-      {showDashboard ? (
-        <Dashboard />
-      ) : (
-        <div className="form-container">
-          <label htmlFor="file-input">Upload Medical Report:</label>
-          <input
-            id="file-input"
-            type="file"
-            onChange={handleFileChange}
-            aria-label="Select medical report file"
-          />
-          <button onClick={handleSubmit} disabled={loading}>
-            Upload{loading && '...'}
-          </button>
-          {file && <p>Selected file: {file.name}</p>}
-          {message && <p className={message.includes('Error') ? 'error' : 'success'}>{message}</p>}
-          {loading && <div className="progress-bar"><div className="progress" style={{ width: `${progress}%` }} /></div>}
-          {(extractedText || eligibility) && (
-            <div className={`result-section ${isCollapsed ? 'collapsed' : ''}`}>
-              <h3 onClick={() => setIsCollapsed(!isCollapsed)} aria-expanded={!isCollapsed}>
-                Results {isCollapsed ? '+' : '-'}
-              </h3>
-              {!isCollapsed && (
-                <>
-                  {extractedText && (
-                    <>
-                      <h3>Extracted Text:</h3>
-                      <pre>{extractedText}</pre>
-                    </>
-                  )}
-                  {eligibility && (
-                    <>
-                      <h3>Eligibility Status:</h3>
-                      <p className={`eligibility-status ${eligibility === 'Not Eligible' ? 'not-eligible' : ''}`}>
-                        {eligibility}
-                      </p>
-                    </>
-                  )}
-                  <button className="reset-button" onClick={handleReset} aria-label="Reset form">
-                    Reset
-                  </button>
-                </>
-              )}
-            </div>
-          )}
+      <form onSubmit={handleSubmit}>
+        <label>
+          Upload Medical Report:
+          <input type="file" onChange={handleFileChange} />
+        </label>
+        <br />
+        <button type="submit" disabled={loading}>Upload{loading && '...'}</button>
+      </form>
+      {file && <p>Selected file: {file.name}</p>}
+      {message && <p>{message}</p>}
+      {extractedText && (
+        <div>
+          <h3>Extracted Text:</h3>
+          <pre>{extractedText}</pre>
+        </div>
+      )}
+      {eligibility && (
+        <div>
+          <h3>Eligibility Status:</h3>
+          <p>{eligibility}</p>
         </div>
       )}
     </div>
