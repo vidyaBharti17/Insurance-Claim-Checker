@@ -328,3 +328,14 @@
 2025-07-10 01:11:06,654 - INFO - File saved: sample4.jpg
 2025-07-10 01:11:07,961 - INFO - Processed sample4.jpg - Eligibility: Eligible
 2025-07-10 01:11:07,964 - INFO - 127.0.0.1 - - [10/Jul/2025 01:11:07] "POST /upload HTTP/1.1" 200 -
+2025-07-10 19:35:40,190 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.20.99:5000
+2025-07-10 19:35:40,191 - INFO - [33mPress CTRL+C to quit[0m
+2025-07-10 19:35:40,196 - INFO -  * Restarting with stat
+2025-07-10 19:35:43,417 - WARNING -  * Debugger is active!
+2025-07-10 19:35:43,423 - INFO -  * Debugger PIN: 111-820-232
+2025-07-10 19:36:35,616 - INFO - File saved: sample4.jpg
+2025-07-10 19:36:37,214 - INFO - Processed sample4.jpg - Eligibility: Eligible
+2025-07-10 19:36:37,216 - INFO - 127.0.0.1 - - [10/Jul/2025 19:36:37] "POST /upload HTTP/1.1" 200 -
