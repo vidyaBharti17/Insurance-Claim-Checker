@@ -11,18 +11,18 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /app
 
+# Copy only the server directory contents
+COPY server/ .
+
 # Copy requirements and install Python dependencies
-COPY requirements.txt .
+COPY server/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Install spaCy model
 RUN python -m spacy download en_core_web_sm
 
-# Copy application code
-COPY . .
-
 # Expose port
 EXPOSE 5000
 
-# Run the app
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "run:app"]
+# Run the app using the Procfile
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--config", "python:Procfile"]
