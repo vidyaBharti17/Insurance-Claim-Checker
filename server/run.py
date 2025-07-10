@@ -72,7 +72,7 @@ def upload_file():
             logging.error(f'Error processing {filename}: {str(e)}')
             return f'Error extracting text: {str(e)}', 500
 
-    return 'Error uploading file', 500
+        return 'Error uploading file', 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
